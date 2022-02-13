@@ -26,7 +26,6 @@ const Signin = ({ providers }: any) => {
 }
 export async function getServerSideProps () {
     const providers = await getProviders()
-    console.log('hii')
     return {
         props: { providers },
     }
