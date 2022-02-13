@@ -9,25 +9,34 @@ import {
     MenuIcon,
 } from '@heroicons/react/outline'
 import { HomeIcon } from '@heroicons/react/solid'
+import { signIn, signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+
 function Header () {
+    const { data: session } = useSession();
     return (
         <div className="shadow-sm border-b bg-white sticky top-0 z-10">
             <div className="mx-5 flex max-w-6xl justify-between lg:mx-auto">
                 {/* Left */}
-                <div className="relative hidden w-24 cursor-pointer lg:inline-grid">
-                    <Image
-                        src="https://links.papareact.com/ocw"
-                        layout="fill"
-                        objectFit="contain"
-                    />
-                </div>
-                <div className="relative w-10 flex-shrink-0 cursor-pointer lg:hidden">
-                    <Image
-                        src="https://links.papareact.com/jjm"
-                        layout="fill"
-                        objectFit="contain"
-                    />
-                </div>
+                <Link href="/">
+                    <div className="relative hidden w-24 cursor-pointer lg:inline-grid">
+
+                        <Image
+                            src="https://links.papareact.com/ocw"
+                            layout="fill"
+                            objectFit="contain"
+                        />
+                    </div>
+                </Link>
+                <Link href="/">
+                    <div className="relative w-10 flex-shrink-0 cursor-pointer lg:hidden">
+                        <Image
+                            src="https://links.papareact.com/jjm"
+                            layout="fill"
+                            objectFit="contain"
+                        />
+                    </div>
+                </Link>
                 {/* Middle */}
                 <div className="max-w-xs">
                     <div className="relative mt-1 rounded-md p-3">
@@ -46,22 +55,25 @@ function Header () {
                 <div className="flex items-center justify-end space-x-4">
                     <HomeIcon className="navBtn" />
                     <MenuIcon className="h-6 w-10 cursor-pointer md:hidden" />
-
-                    <div className="navBtn relative">
+                    {session ? (<>     <div className="navBtn relative">
                         <PaperAirplaneIcon className="navBtn rotate-45" />
                         <div className="absolute -top-1 -right-2 text-xs h-5 w-5 flex items-center justify-center rounded-full bg-red-500 animate-pulse text-white">
                             3
                         </div>
                     </div>
-                    <PlusCircleIcon className="navBtn" />
-                    <UserGroupIcon className="navBtn" />
-                    <HeartIcon className="navBtn" />
+                        <PlusCircleIcon className="navBtn" />
+                        <UserGroupIcon className="navBtn" />
+                        <HeartIcon className="navBtn" />
 
-                    <img
-                        src="https://scontent.fmdl4-3.fna.fbcdn.net/v/t1.6435-9/33083052_375460019611960_2067366586485833728_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-803kPWisC0AX_erz7y&_nc_ht=scontent.fmdl4-3.fna&oh=00_AT_Ni8q5gUXxREyku6ZKm21nuSQSeXhnvZnvYUDJGRcZrw&oe=622E281B"
-                        alt="profile"
-                        className="h-10 cursor-pointer rounded-full"
-                    />
+                        <img
+                            onClick={signOut}
+                            src={session?.user?.image || ""}
+                            alt="profile"
+                            className="h-10 cursor-pointer rounded-full"
+                        /></>) : (
+                        <button onClick={signIn}>signin</button>
+                    )}
+
                 </div>
             </div>
         </div>
