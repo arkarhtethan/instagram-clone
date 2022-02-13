@@ -121,11 +121,11 @@ function Post ({ id, username, userImg, img, caption }: IPostProps) {
                 </div>
             )}
             {/* caption */}
-            <p className="truncate p-5">
+            <div className="truncate p-5">
                 {likes.length > 0 && (<p className="font-bold mb-1">{likes.length} likes</p>)}
                 <span className="mr-1 font-bold">{username}</span>
                 {caption}
-            </p>
+            </div>
             {/* comments */}
             {comments.length > 0 && (
                 <div className="ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
