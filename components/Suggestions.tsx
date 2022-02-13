@@ -9,7 +9,6 @@ const Suggestions = () => {
             id: index,
         }))
         setSuggestions(suggestions);
-        console.log(suggestions);
     }, [])
 
     return (
